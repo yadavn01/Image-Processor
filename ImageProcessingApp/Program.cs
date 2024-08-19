@@ -1,3 +1,4 @@
+using dotenv.net;
 using Google.Cloud.Vision.V1;
 
 public class Program
@@ -5,9 +6,9 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
+        DotEnv.Load();
         // Load Google Cloud Vision API credentials from the JSON file
-        string credentialsPath = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
+    string credentialsPath = Path.Combine(Directory.GetCurrentDirectory(), "Secrets", "imageprocessingapp-11ff9726346d.json");
         Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialsPath);
 
         // Add services to the container.
@@ -17,7 +18,6 @@ public class Program
         builder.Services.AddSingleton<ImageAnnotatorClient>(ImageAnnotatorClient.Create());
         builder.Services.AddScoped<IVisionService, VisionService>();
         builder.Services.AddScoped<IImageRepository, ImageRepository>();
-
 
         var app = builder.Build();
 
