@@ -1,0 +1,6 @@
+# Ignore the Secrets directory
+Secrets/
+
+# Ignore other sensitive or unnecessary files
+*.json
+*.env
